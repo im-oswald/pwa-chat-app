@@ -1,7 +1,11 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const cors = require('cors');
 
 const app = express();
+
+// Use the CORS middleware with default options (allows all origins)
+app.use(cors());
 
 connectDB();
 
