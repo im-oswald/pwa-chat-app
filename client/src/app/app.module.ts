@@ -4,10 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from '@app/app-routing.module';
-import { AppComponent } from '@app/app.component';
-import { LoginComponent } from '@app/login/login.component';
-import { SignupComponent } from '@app/signup/signup.component';
-import { AuthService } from '@services/auth.service';
+import { AppComponent, LoginComponent, SignupComponent } from '@app/index';
+import { AuthService, UserService } from '@services/index';
 
 @NgModule({
   declarations: [
@@ -25,6 +23,7 @@ import { AuthService } from '@services/auth.service';
   providers: [
     HttpClient,
     AuthService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

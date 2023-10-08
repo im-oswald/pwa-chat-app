@@ -1,1 +1,32 @@
-<p>signup works!</p>
+<div class="signup-container">
+    <div class="navigation">
+      <span>Already have an account?</span>
+      <span class="signup-cta">Login</span>
+    </div>
+    <div class="greetings">Great to have you here! 🎉</div>
+    <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="title">Register yourself </div>
+      <div class="field" [ngClass]="{'invalid-field': isInvalid('name')}">
+        <label>Name</label>
+        <input type="text" placeholder="Please enter your full name" formControlName="name" />
+        <div class="error-block" *ngIf="isInvalid('name')">{{ getErrorMessage("name") }}</div>
+      </div>
+      <div class="field" [ngClass]="{'invalid-field': isInvalid('email')}">
+        <label>Email</label>
+        <input type="email" placeholder="Please enter your email" formControlName="email" />
+        <div class="error-block" *ngIf="isInvalid('email')">{{ getErrorMessage("email") }}</div>
+      </div>
+      <div class="field" [ngClass]="{'invalid-field': isInvalid('password')}">
+        <label>Password</label>
+        <input type="password" placeholder="Enter password" formControlName="password" />
+        <div class="error-block" *ngIf="isInvalid('password')">{{ getErrorMessage("password") }}</div>
+      </div>
+      <div class="field" [ngClass]="{'invalid-field': isInvalid('confirmPassword')}">
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Enter password" formControlName="confirmPassword" />
+        <div class="error-block" *ngIf="isInvalid('confirmPassword')">{{ getErrorMessage("confirmPassword") }}</div>
+      </div>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+  

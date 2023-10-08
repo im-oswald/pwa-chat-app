@@ -1,0 +1,158 @@
+@import url('https://fonts.cdnfonts.com/css/mulish');
+$container-height: 70%;
+$container-width: 25%;
+$container-padding: 2rem;
+$container-font-family: "Mulish", sans-serif;
+
+.signup-container {
+  background: white;
+  border: 1px solid #D8D8D8;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  width: $container-width;
+  height: $container-height;
+  position: absolute;
+  top: calc(50% - $container-height / 2);
+  left: calc(50% - $container-width / 2);
+  padding: $container-padding;
+  font-family: $container-font-family;
+
+  .navigation {
+    color: #333;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: right;
+    margin-bottom: 3rem;
+
+    .signup-cta {
+      margin-left: 3px;
+      color: #06F;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-decoration-line: underline;
+      cursor: pointer;
+    }
+  }
+
+  .greetings {
+    color: #757575;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .form {
+    margin-top: 8px;
+
+    .invalid-field{
+      label {
+        color: #e00400 !important;
+      }
+      input {
+        border-color: #e00400 !important;
+      }
+      .error-block {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+    }
+
+    .title {
+      color: #333;
+      font-size: 24px;
+      font-style: bold;
+      font-weight: 500;
+      line-height: normal;
+      margin-bottom: 2rem;
+    }
+
+    .field {
+      margin-top: 20px;
+
+      label {
+        color: #333;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+
+      input {
+        margin-top: 5px;
+        display: flex;
+        width: 92%;
+        height: 40px;
+        padding: 0px 12px;
+        align-items: center;
+        gap: 12px;
+        border-radius: 4px;
+        border: 1px solid #D8D8D8;
+        background: #FFF;
+      }
+    }
+
+    button {
+      margin-top: 20px;
+      display: flex;
+      width: 99%;
+      height: 45px;
+      padding: 9px 14px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      border: 1px solid #0056D7;
+      background: #0067FF;
+      cursor: pointer;
+      color: white;
+
+      &:hover {
+        background: #0099FE;
+        border: 1px solid #00a1fe;
+      }
+    }
+  }
+
+  .forget {
+    margin-top: 1.5rem;
+    color: #06F;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 575px) {
+  .signup-container {
+    height: 85vh;
+    width: 80%;
+    top: 0;
+    left: 0;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .signup-container {
+    width: 40%;
+    top: calc(40% - $container-height / 2);
+    left: calc(40% - $container-width / 2);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .signup-container {
+    width: 30%;
+    top: calc(40% - $container-height / 2);
+    left: calc(40% - $container-width / 2);
+  }
+}
