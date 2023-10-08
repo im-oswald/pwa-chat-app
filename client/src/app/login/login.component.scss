@@ -48,6 +48,20 @@ $container-font-family: "Mulish", sans-serif;
   .form {
     margin-top: 8px;
 
+    .invalid-field{
+      label {
+        color: #e00400 !important;
+      }
+      input {
+        border-color: #e00400 !important;
+      }
+      .error-block {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+    }
+
     .title {
       color: #333;
       font-size: 24px;
@@ -100,6 +114,7 @@ $container-font-family: "Mulish", sans-serif;
 
       &:hover {
         background: #0099FE;
+        border: 1px solid #00a1fe;
       }
     }
   }
