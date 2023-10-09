@@ -30,6 +30,7 @@
       "@services/*": [ "src/services/*" ],
       "@app/*": [ "src/app/*" ],
       "@utils/*": [ "src/utils/*" ],
+      "@guards/*": [ "src/guards/*" ],
     },
     "strictPropertyInitialization": false
   },

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '@services/auth.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class LoginComponent {
   loginForm: FormGroup;
   loginTriggered: boolean;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private alertService: ToastrService,
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -51,5 +55,15 @@ export class LoginComponent {
 
   onSubmit() {
     this.loginTriggered = true;
+
+    if (!this.loginForm.valid)
+      return;
+
+    const payload = this.loginForm.value;
+
+    this.authService.login(payload)?.subscribe((res) => {
+      this.alertService.success(res?.msg, 'Success');
+      this.initForm();
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent, LoginComponent, SignupComponent } from '@app/index';
 import { AuthService, UserService } from '@services/index';
+import { AuthInterceptor, TokenInterceptor } from '@guards/index';
 import { Utils } from '@utils/index';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -33,6 +34,16 @@ import { ToastrModule } from 'ngx-toastr';
     AuthService,
     UserService,
     Utils,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

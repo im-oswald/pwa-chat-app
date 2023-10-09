@@ -55,7 +55,7 @@ router.post('/login', [
             throw err;
           }
 
-          return res.json({ token });
+          return res.json({ token, msg: 'Logged in successfully' });
         })
       } else {
         return res.status(401).json({ errors: [{ msg: 'Invalid email or password' }] });
