@@ -51,7 +51,7 @@ export class AuthService {
 
   clearToken() {
     this.dbService.clearToken(this.tokenKey).subscribe(() => {
-      this.isLoggedIn.next(false)
+      this.checkUserLoggedIn();
     });
   }
 
