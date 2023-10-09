@@ -6,7 +6,7 @@ import {
   HttpEvent,
   HttpResponse,
 } from "@angular/common/http";
-import { Observable, tap } from "rxjs";
+import { Observable, switchMap } from "rxjs";
 import { AuthService } from "@src/services";
 
 @Injectable()
@@ -17,16 +17,17 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken();
-
-    if (token) {
-      const authReq = request.clone({
-        setHeaders: { Authorization: `Bearer ${token}`.replaceAll("\"", '') },
-      });
-      return next.handle(authReq);
-    }
-
-    return next.handle(request);
+    return this.authService.getToken().pipe(
+      switchMap((token) => {
+        if (token) {
+          const authReq = request.clone({
+            setHeaders: { Authorization: `Bearer ${token}` },
+          });
+          return next.handle(authReq);
+        }
+        return next.handle(request);
+      })
+    );
   }
 
 }

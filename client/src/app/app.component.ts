@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@services/index';
+import { AuthService, DBService } from '@services/index';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -16,12 +16,17 @@ export class AppComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alertService: ToastrService
+    private alertService: ToastrService,
+    private dbService: DBService,
   ) { }
 
   ngOnInit() {
-    this.authService.checkUserLoggedIn();
-    this.authService.isLoggedIn.subscribe((loggedIn) => this.watchLoggedIn(loggedIn));
+    this.dbService.onDBReady().subscribe((isDBReady) => {
+      if (isDBReady) {
+        this.authService.checkUserLoggedIn();
+        this.authService.isLoggedIn.subscribe((loggedIn) => this.watchLoggedIn(loggedIn));
+      }
+    })
   }
 
   ngOnDestroy() {

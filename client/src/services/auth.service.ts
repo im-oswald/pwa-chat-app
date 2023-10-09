@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
+import { BehaviorSubject, Observable, catchError, map, tap } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { environment } from "@src/environments/environment";
+import { DBService } from "@services/index";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private alertService: ToastrService,
+    private dbService: DBService
   ) { }
 
   getUserData(): Observable<any> {
@@ -37,13 +39,20 @@ export class AuthService {
     );
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+  storeUserData(token: string) {
+    this.dbService.storeToken({ id: this.tokenKey, token }).subscribe(() => {
+      this.isLoggedIn.next(true);
+    });
   }
 
-  storeUserData(token: string) {
-    localStorage.setItem(this.tokenKey, JSON.stringify(token));
-    this.isLoggedIn.next(true);
+  getToken(): Observable<string | null> {
+    return this.dbService.getToken(this.tokenKey);
+  }
+
+  clearToken() {
+    this.dbService.clearToken(this.tokenKey).subscribe(() => {
+      this.isLoggedIn.next(false)
+    });
   }
 
   checkUserLoggedIn() {

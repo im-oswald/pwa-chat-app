@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent, LoginComponent, SignupComponent, MessengerComponent } from '@app/index';
-import { AuthService, UserService } from '@services/index';
+import { AuthService, UserService, DBService } from '@services/index';
 import { AuthInterceptor, TokenInterceptor } from '@guards/index';
 import { Utils } from '@utils/index';
 import { ToastrModule } from 'ngx-toastr';
@@ -34,6 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClient,
     AuthService,
     UserService,
+    DBService,
     Utils,
     {
       provide: HTTP_INTERCEPTORS,
