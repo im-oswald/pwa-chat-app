@@ -10,7 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AppComponent {
   title = 'Chat App';
-  interval: ReturnType<typeof setTimeout>;
+  interval: ReturnType<typeof setTimeout> | undefined;
+  isLoading: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -19,18 +20,40 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
-    this.interval = setInterval(this.authService.checkUserLoggedIn.bind(this.authService), 5000);
-    this.authService.isLoggedIn.subscribe((loggedIn) => this.navigateOrStay(loggedIn));
+    this.authService.checkUserLoggedIn();
+    this.authService.isLoggedIn.subscribe((loggedIn) => this.watchLoggedIn(loggedIn));
   }
 
   ngOnDestroy() {
-    clearInterval(this.interval);
+    this.authService.isLoggedIn.unsubscribe(); // Unsubscribe to prevent memory leaks.
+    this.clearInterval();
   }
 
-  navigateOrStay(loggedIn: boolean | undefined) {
+  clearInterval() {
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = undefined;
+    }
+  }
+
+  watchLoggedIn(loggedIn: boolean | undefined) {
     if (loggedIn == undefined)
       return;
 
+    this.isLoading = false;
+
+    if (loggedIn) {
+      if (this.interval == undefined) {
+        this.interval = setInterval(this.authService.checkUserLoggedIn.bind(this.authService), 5000);
+      }
+    } else {
+      this.clearInterval()
+    }
+    
+    this.navigateOrStay(loggedIn);
+  }
+
+  navigateOrStay(loggedIn: boolean) {
     if (loggedIn) {
       this.router.navigate(['messenger']);
     } else {
