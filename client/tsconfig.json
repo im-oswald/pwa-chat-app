@@ -29,6 +29,7 @@
       "@assets/*": [ "src/assets/*" ],
       "@services/*": [ "src/services/*" ],
       "@app/*": [ "src/app/*" ],
+      "@utils/*": [ "src/utils/*" ],
     },
     "strictPropertyInitialization": false
   },

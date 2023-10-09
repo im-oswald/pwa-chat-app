@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent, LoginComponent, SignupComponent } from '@app/index';
 import { AuthService, UserService } from '@services/index';
+import { Utils } from '@utils/index';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ToastrModule } from 'ngx-toastr';
   providers: [
     HttpClient,
     AuthService,
-    UserService
+    UserService,
+    Utils,
   ],
   bootstrap: [AppComponent]
 })

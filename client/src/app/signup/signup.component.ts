@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '@src/services/index';
 import { ToastrService } from 'ngx-toastr';
+import { Utils } from '@utils/index';
 
 @Component({
   selector: 'app-signup',
@@ -37,6 +38,8 @@ export class SignupComponent {
     }
 
     const firstError = this.f[fieldName].errors?.[firstErrorKey];
+
+    fieldName = Utils.camelCaseToNormal(fieldName).toLowerCase();
 
     switch (firstErrorKey) {
       case 'required':
