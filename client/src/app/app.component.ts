@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AppComponent {
   title = 'Chat App';
+  interval: ReturnType<typeof setTimeout>;
 
   constructor(
     private authService: AuthService,
@@ -18,8 +19,12 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
-    this.authService.checkUserLoggedIn();
+    this.interval = setInterval(this.authService.checkUserLoggedIn.bind(this.authService), 5000);
     this.authService.isLoggedIn.subscribe((loggedIn) => this.navigateOrStay(loggedIn));
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 
   navigateOrStay(loggedIn: boolean | undefined) {
