@@ -1,7 +1,7 @@
 <div class="signup-container">
     <div class="navigation">
       <span>Already have an account?</span>
-      <span class="signup-cta">Login</span>
+      <span class="signup-cta" routerLink="/login">Login</span>
     </div>
     <div class="greetings">Great to have you here! 🎉</div>
     <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
