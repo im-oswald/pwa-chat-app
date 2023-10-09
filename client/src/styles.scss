@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'node_modules/ngx-toastr/toastr';
+@import url('https://fonts.cdnfonts.com/css/mulish');
+
+$alert-font-family: "Mulish", sans-serif;
+
+.overlay-container {
+  .toast-container {
+    font-family: $alert-font-family;
+  }
+}
+  

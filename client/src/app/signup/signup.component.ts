@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '@src/services/index';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,10 @@ export class SignupComponent {
   signupForm: FormGroup;
   signupTriggered: boolean;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private alertService: ToastrService,
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -33,8 +37,6 @@ export class SignupComponent {
     }
 
     const firstError = this.f[fieldName].errors?.[firstErrorKey];
-
-    console.log(this.f[fieldName].errors);
 
     switch (firstErrorKey) {
       case 'required':
@@ -81,8 +83,9 @@ export class SignupComponent {
 
     const payload = this.signupForm.value;
 
-    this.userService.register(payload).subscribe((res) => {
-      debugger
+    this.userService.register(payload)?.subscribe((res) => {
+      this.alertService.success(res?.msg, 'Success');
+      this.initForm();
     });
   }
 }
