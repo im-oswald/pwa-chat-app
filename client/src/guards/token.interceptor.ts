@@ -7,14 +7,16 @@ import {
   HttpResponse,
 } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
+import { AuthService } from "@services/index";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService) { }
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    debugger
     return next.handle(request).pipe(
       tap((event) => {
         if (event instanceof HttpResponse) {
@@ -22,14 +24,10 @@ export class TokenInterceptor implements HttpInterceptor {
           delete event.body.token;
 
           if (token) {
-            this.storeTokenSecurely(token);
+            this.authService.storeUserData(token);
           }
         }
       })
     );
-  }
-
-  private storeTokenSecurely(token: string) {
-    localStorage.setItem("authToken", token);
   }
 }

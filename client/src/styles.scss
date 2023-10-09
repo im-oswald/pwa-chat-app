@@ -4,6 +4,10 @@
 
 $alert-font-family: "Mulish", sans-serif;
 
+body {
+  background: #F9FAFC;
+}
+
 .overlay-container {
   .toast-container {
     font-family: $alert-font-family;

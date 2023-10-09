@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
-import { AppComponent, LoginComponent, SignupComponent } from '@app/index';
+import { AppComponent, LoginComponent, SignupComponent, MessengerComponent } from '@app/index';
 import { AuthService, UserService } from '@services/index';
 import { AuthInterceptor, TokenInterceptor } from '@guards/index';
 import { Utils } from '@utils/index';
@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
     AppComponent,
     LoginComponent,
     SignupComponent,
+    MessengerComponent,
   ],
   imports: [
     BrowserModule,
