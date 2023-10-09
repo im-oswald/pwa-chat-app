@@ -50,6 +50,8 @@ $container-font-family: "Mulish", sans-serif;
     margin-top: 8px;
 
     .invalid-field{
+      margin-top: 10px !important;
+
       label {
         color: #e00400 !important;
       }
