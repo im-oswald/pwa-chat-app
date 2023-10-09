@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "@src/environments/environment";
 import { BehaviorSubject, Observable, catchError, map, of, tap } from "rxjs";
+import { ToastrService } from "ngx-toastr";
+import { environment } from "@src/environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -9,7 +10,10 @@ export class AuthService {
   isLoggedIn = new BehaviorSubject<boolean | undefined>(undefined);
   tokenKey = "authToken";
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private alertService: ToastrService,
+  ) { }
 
   getUserData(): Observable<any> {
     const response = this.http.get(`${this.apiUrl}/api/auth`);
@@ -24,6 +28,10 @@ export class AuthService {
     const response = this.http.post<any>(`${this.apiUrl}/api/auth/login`, data);
 
     return response.pipe(
+      catchError((error: any) => {
+        this.alertService.error(error.error.errors[0].msg, error.statusText)
+        return error;
+      }),
       map(response => response),
       tap(response => console.log('Testing: ', response)),
     );

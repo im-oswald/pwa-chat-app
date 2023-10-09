@@ -38,7 +38,7 @@ router.post('/login', [
     try {
       const user = await User.findOne({ email });
       if(!user) {
-        return res.status(401).json({ errors: [{ msg: 'Invalid email or password' }] });
+        return res.status(400).json({ errors: [{ msg: 'Invalid email or password' }] });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
@@ -58,7 +58,7 @@ router.post('/login', [
           return res.json({ token, msg: 'Logged in successfully' });
         })
       } else {
-        return res.status(401).json({ errors: [{ msg: 'Invalid email or password' }] });
+        return res.status(400).json({ errors: [{ msg: 'Invalid email or password' }] });
       }
 
     } catch(err) {
