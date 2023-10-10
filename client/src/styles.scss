@@ -2,15 +2,9 @@
 @import 'node_modules/ngx-toastr/toastr';
 @import url('https://fonts.cdnfonts.com/css/mulish');
 
-$alert-font-family: "Mulish", sans-serif;
+$default-font-family: "Mulish", sans-serif;
 
 body {
   background: #F9FAFC;
+  font-family: $default-font-family;
 }
-
-.overlay-container {
-  .toast-container {
-    font-family: $alert-font-family;
-  }
-}
-  

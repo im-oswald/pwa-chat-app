@@ -1,0 +1,31 @@
+.side-nav {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+
+  .logo {
+    color: white;
+    display: flex;
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    background: var(--Primary, #615EF0);
+    font-size: 20px;
+  }
+
+  .nav-item {
+    margin-top: 3rem;
+  }
+
+  .bottom {
+    margin-top: auto;
+  }
+}

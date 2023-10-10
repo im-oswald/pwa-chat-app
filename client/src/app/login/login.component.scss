@@ -1,8 +1,6 @@
-@import url('https://fonts.cdnfonts.com/css/mulish');
 $container-height: 60%;
 $container-width: 25%;
 $container-padding: 2rem;
-$container-font-family: "Mulish", sans-serif;
 
 .login-container {
   background: white;
@@ -15,7 +13,6 @@ $container-font-family: "Mulish", sans-serif;
   top: calc(50% - $container-height / 2);
   left: calc(50% - $container-width / 2);
   padding: $container-padding;
-  font-family: $container-font-family;
 
   .navigation {
     color: #333;

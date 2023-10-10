@@ -3,18 +3,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from '@app/app-routing.module';
-import { AppComponent, LoginComponent, SignupComponent, MessengerComponent } from '@app/index';
+import { AppComponent, LoginComponent, SignupComponent } from '@app/index';
 import { AuthService, UserService, DBService } from '@app/services';
 import { AuthInterceptor, TokenInterceptor } from '@app/guards';
-import { ToastrModule } from 'ngx-toastr';
+import { MessengerModule } from '@app/messenger/messenger.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    MessengerComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +23,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
+    MessengerModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-center',
