@@ -3,11 +3,10 @@ import {
   HttpInterceptor,
   HttpRequest,
   HttpHandler,
-  HttpEvent,
-  HttpResponse,
+  HttpEvent
 } from "@angular/common/http";
 import { Observable, switchMap } from "rxjs";
-import { AuthService } from "@src/services";
+import { AuthService } from "@app/services";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

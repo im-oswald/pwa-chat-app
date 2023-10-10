@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '@src/services/index';
 import { ToastrService } from 'ngx-toastr';
-import { Utils } from '@utils/index';
+import { UserService } from '@app/services';
+import { Utils } from '@src/utils';
 
 @Component({
   selector: 'app-signup',

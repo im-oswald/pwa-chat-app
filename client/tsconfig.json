@@ -27,10 +27,7 @@
       "@src/*": [ "src/*" ],
       "@angular/*": [ "node_modules/@angular/*" ],
       "@assets/*": [ "src/assets/*" ],
-      "@services/*": [ "src/services/*" ],
       "@app/*": [ "src/app/*" ],
-      "@utils/*": [ "src/utils/*" ],
-      "@guards/*": [ "src/guards/*" ],
     },
     "strictPropertyInitialization": false
   },

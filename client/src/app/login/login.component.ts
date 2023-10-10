@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-login',

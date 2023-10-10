@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, catchError, map, tap } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { environment } from "@src/environments/environment";
-import { DBService } from "@services/index";
+import { DBService } from "@app/services";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
