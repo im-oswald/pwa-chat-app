@@ -7,7 +7,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent, LoginComponent, SignupComponent } from '@app/index';
 import { AuthService, UserService, DBService } from '@app/services';
-import { AuthInterceptor, TokenInterceptor } from '@app/guards';
+import { AuthErrorInterceptor, AuthInterceptor, TokenInterceptor } from '@app/guards';
 import { MessengerModule } from '@app/pages/messenger/messenger.module';
 
 @NgModule({
@@ -44,7 +44,12 @@ import { MessengerModule } from '@app/pages/messenger/messenger.module';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthErrorInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })

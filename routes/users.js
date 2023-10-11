@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../models/User');
+const auth = require('../middlewares/auth');
 
 const router = express.Router();
 
@@ -60,6 +61,20 @@ router.post('/', [
       console.log(err);
       return res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
     }
+});
+
+// @route           /api/users
+// @description     to get the list of users
+// @access          Private
+router.get('/', auth, async(_req, res) => {
+  try {
+    const users = await User.find({}).select('-password');
+
+    return res.json(users);
+  } catch(err) {
+    console.log(err);
+    return res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+  }
 });
 
 module.exports = router;
