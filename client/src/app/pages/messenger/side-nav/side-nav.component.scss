@@ -29,4 +29,10 @@
     margin-top: auto;
     margin-bottom: 30px;
   }
+
+  #settings {
+    .rotate {
+      transform: rotate(45deg);
+    }
+  }
 }

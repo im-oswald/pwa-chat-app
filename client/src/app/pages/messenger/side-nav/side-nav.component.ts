@@ -12,7 +12,14 @@ export class SideNavComponent {
   constructor(private authService: AuthService) { }
 
   toggleMenu() {
+    const icon = document.querySelector('#settings img');
+
     this.showMenu = !this.showMenu;
+    if (this.showMenu) {
+      icon?.classList.add('rotate');
+    } else {
+      icon?.classList.remove('rotate');
+    }
   }
 
   logout() {
@@ -27,7 +34,7 @@ export class SideNavComponent {
 
     // Check if the click target is outside the menu and the settings icon
     if (!settings?.contains(target) && !menu?.contains(target)) {
-      this.showMenu = false;
+      this.toggleMenu();
     }
   }
 }
