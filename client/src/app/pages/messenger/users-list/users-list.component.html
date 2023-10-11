@@ -1,17 +1,13 @@
 <div class="users-list">
   <div class="header-section">
     <div class="title">Messages <span class="count">12</span></div>
-    <div class="add-message">
-      <img height="30px" width="30px" src="assets/icons/add.svg" />
+    <div class="add-message" (click)="toggleUserDropdown()">
+      <img #addIcon height="30px" width="30px" src="assets/icons/add.svg" />
+      <app-users-dropdown [showDropdown]="showUserDropdown" (toggleDropdown)="toggleUserDropdown()"></app-users-dropdown>
     </div>
   </div>
   <div class="search-section">
-    <div class="search-container">
-      <div class="search-icon">
-        <img src="assets/icons/search.svg" alt="Search" />
-      </div>
-      <input class="search-field" type="text" placeholder="Search messages" />
-    </div>
+    <app-search-field class="container" [properties]="userDropdownProperties"></app-search-field>
   </div>
   <div class="chats">
     <div class="chat-item" *ngFor="let user of users">

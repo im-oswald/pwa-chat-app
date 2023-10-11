@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-users-list',
@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent {
+  @ViewChild('addIcon') addIcon: ElementRef;
   users: Array<Object> = [
     {
       id: 0,
@@ -20,4 +21,12 @@ export class UsersListComponent {
       last_message: 'Hi this is just a testing message to check if the it fits in'
     },
   ];
+  showUserDropdown: boolean = false;
+  userDropdownProperties: Object = {
+    placeholder: "Search users",
+  }
+
+  toggleUserDropdown() {
+    this.showUserDropdown = !this.showUserDropdown;
+  }
 }

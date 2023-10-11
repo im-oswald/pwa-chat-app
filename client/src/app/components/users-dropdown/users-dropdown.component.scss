@@ -1,0 +1,25 @@
+.users-dropdown {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-height: 400px;
+  overflow-y: auto;
+  width: 200px;
+  padding: 10px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+}
