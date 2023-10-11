@@ -1,0 +1,53 @@
+.chat-card {
+  display: flex;
+  padding: 12px;
+  align-items: flex-start;
+  gap: 16px;
+  cursor: pointer;
+  align-self: stretch;
+
+  &:hover, .active {
+    border-radius: 12px;
+    background: rgba(97, 94, 240, 0.06);    
+  }
+
+  .thumbnail {
+    padding: 10px;
+    background: var(--Primary, #615EF0);
+    color: white;
+    width: 48px;
+    height: 35px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    display: block;
+    text-align: left;
+    width: 100%;
+
+    .container {
+      display: flex;
+      align-items: center;
+      height: 32px;
+
+      .time-ago {
+        color: rgba(0, 0, 0, 0.40);
+        font-size: 14px;
+        font-style: normal;
+        line-height: 150%;
+        margin-left: auto;
+      }
+    }
+    
+    .message-text {
+      color: rgba(0, 0, 0, 0.40);
+      font-size: 12px;
+      font-style: normal;
+      line-height: 150%;
+      margin-bottom: 5px;
+    }
+  }
+}

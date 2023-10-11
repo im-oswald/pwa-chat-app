@@ -13,4 +13,9 @@
       <input class="search-field" type="text" placeholder="Search messages" />
     </div>
   </div>
+  <div class="chats">
+    <div class="chat-item" *ngFor="let user of users">
+      <app-message [user]="user"></app-message>
+    </div>
+  </div>
 </div>
