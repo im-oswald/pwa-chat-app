@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { AuthService } from '@src/app/services';
 
 @Component({
@@ -7,18 +7,18 @@ import { AuthService } from '@src/app/services';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent {
+  @ViewChild('settingsIcon') settingsIcon: ElementRef;
   showMenu: boolean = false;
 
   constructor(private authService: AuthService) { }
 
   toggleMenu() {
-    const icon = document.querySelector('#settings img');
 
     this.showMenu = !this.showMenu;
     if (this.showMenu) {
-      icon?.classList.add('rotate');
+      this.settingsIcon.nativeElement.classList.add('rotate');
     } else {
-      icon?.classList.remove('rotate');
+      this.settingsIcon.nativeElement.classList.remove('rotate');
     }
   }
 
@@ -34,7 +34,8 @@ export class SideNavComponent {
 
     // Check if the click target is outside the menu and the settings icon
     if (!settings?.contains(target) && !menu?.contains(target)) {
-      this.toggleMenu();
+      this.showMenu = false;
+      this.settingsIcon.nativeElement.classList.remove('rotate');
     }
   }
 }

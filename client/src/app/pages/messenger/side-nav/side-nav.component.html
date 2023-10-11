@@ -4,7 +4,7 @@
     <img src="assets/icons/message.svg" />
   </div>
   <div id="settings" class="nav-item bottom" (click)="toggleMenu()">
-    <img src="assets/icons/gear.svg" />
+    <img #settingsIcon src="assets/icons/gear.svg" />
   </div>
   <app-menu *ngIf="showMenu" (logout)="logout()"></app-menu>
 </div>
