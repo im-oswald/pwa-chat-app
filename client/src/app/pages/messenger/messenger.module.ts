@@ -9,7 +9,7 @@ import {
   MessagesComponent,
   QuickAccessComponent,
   MessengerComponent
-} from '@src/app/messenger';
+} from '@src/app/pages/messenger';
 
 @NgModule({
   declarations: [

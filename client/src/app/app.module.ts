@@ -8,7 +8,7 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent, LoginComponent, SignupComponent } from '@app/index';
 import { AuthService, UserService, DBService } from '@app/services';
 import { AuthInterceptor, TokenInterceptor } from '@app/guards';
-import { MessengerModule } from '@app/messenger/messenger.module';
+import { MessengerModule } from '@app/pages/messenger/messenger.module';
 
 @NgModule({
   declarations: [
