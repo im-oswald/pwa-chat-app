@@ -1,5 +1,5 @@
 <div #dropdown class="users-dropdown" *ngIf="showDropdown">
-  <app-search-field [properties]="dropdownProperties"></app-search-field>
+  <app-search-field [properties]="searchProperties"></app-search-field>
   <ul>
     <li *ngFor="let item of filteredItems" (click)="selectItem(item)">
       {{ item }}

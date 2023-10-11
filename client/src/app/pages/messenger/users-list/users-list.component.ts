@@ -22,7 +22,10 @@ export class UsersListComponent {
     },
   ];
   showUserDropdown: boolean = false;
-  userDropdownProperties: Object = {
+  messageSearchProperties: Object = {
+    placeholder: "Search messages",
+  }
+  userSearchProperties: Object = {
     placeholder: "Search users",
   }
 

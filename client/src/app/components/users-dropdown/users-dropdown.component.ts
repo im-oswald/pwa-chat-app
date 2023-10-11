@@ -8,6 +8,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewC
 export class UsersDropdownComponent {
   @ViewChild('dropdown') dropdown: ElementRef;
   @Input() showDropdown: boolean;
+  @Input() searchProperties: any;
   @Output() toggleDropdown = new EventEmitter<void>();
   items = [
     'Item 1',
@@ -17,9 +18,6 @@ export class UsersDropdownComponent {
 
   filteredItems: string[] = [];
   searchTerm = '';
-  dropdownProperties: any = {
-    placeholder: "Search users",
-  }
 
   toggle() {
     this.toggleDropdown.emit();
@@ -39,11 +37,11 @@ export class UsersDropdownComponent {
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    const menu = this.dropdown.nativeElement;
+    const dropdown = this.dropdown.nativeElement;
     const add = document.querySelector('.add-message');
 
     // Check if the click target is outside the menu and the settings icon
-    if (!add?.contains(target) && !menu?.contains(target)) {
+    if (!add?.contains(target) && !dropdown?.contains(target)) {
       this.toggle();
       this.dropdown.nativeElement.classList.remove('rotate');
     }
