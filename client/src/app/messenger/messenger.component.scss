@@ -1,13 +1,13 @@
 $left-pane-width: 100px;
-$users-panel-width: 27%;
-$messages-panel-width: 40%;
+$users-panel-width: 20%;
+$messages-panel-width: 50%;
 $quick-access-panel-width: calc(100% - $left-pane-width - $users-panel-width - $messages-panel-width);
 .grid-container {
   display: grid;
   grid-template-columns: $left-pane-width $users-panel-width $messages-panel-width $quick-access-panel-width;
 
   .grid-item {
-    height: 93vh;
+    height: 100vh;
     text-align: center;
   }
 }

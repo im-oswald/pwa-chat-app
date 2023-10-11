@@ -7,9 +7,9 @@
   flex-shrink: 0;
   cursor: pointer;
   box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.08);
-  padding: 20px;
 
   .logo {
+    margin-top: 20px;
     color: white;
     display: flex;
     width: 56px;
@@ -27,5 +27,6 @@
 
   .bottom {
     margin-top: auto;
+    margin-bottom: 30px;
   }
 }
