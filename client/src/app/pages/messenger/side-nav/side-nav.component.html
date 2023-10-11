@@ -3,7 +3,8 @@
   <div class="nav-item">
     <img src="assets/icons/message.svg" />
   </div>
-  <div class="nav-item bottom">
+  <div id="settings" class="nav-item bottom" (click)="toggleMenu()">
     <img src="assets/icons/gear.svg" />
   </div>
+  <app-menu *ngIf="showMenu" (logout)="logout()"></app-menu>
 </div>

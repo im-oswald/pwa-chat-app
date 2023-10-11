@@ -64,7 +64,7 @@ export class AppComponent {
     } else {
       if (!/^\/login|signup$/.test(this.router.url)) {
         this.router.navigate(['login']);
-        this.alertService.info('Login to proceed', 'Session Expired');
+        this.alertService.info('Login to proceed', 'Session Killed');
       }
     }
   }

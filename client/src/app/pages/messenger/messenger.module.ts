@@ -10,7 +10,7 @@ import {
   QuickAccessComponent,
   MessengerComponent
 } from '@app/pages/messenger';
-import { MessageComponent } from '@app/components';
+import { MessageComponent, MenuComponent } from '@app/components';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { MessageComponent } from '@app/components';
     UsersListComponent,
     MessagesComponent,
     QuickAccessComponent,
-    MessageComponent
+    MessageComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

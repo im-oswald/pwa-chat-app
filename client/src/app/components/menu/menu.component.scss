@@ -1,0 +1,27 @@
+.menu {
+  background: white;
+  position: absolute;
+  bottom: 70px;
+  z-index: 1;
+  width: 150px;
+  border-radius: 12px;
+  border: 1px solid #e1e1e1;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 10px;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  li:hover {
+    background: rgba(97, 94, 240, 0.06);
+  }
+}
