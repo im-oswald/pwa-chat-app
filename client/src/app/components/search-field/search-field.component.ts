@@ -13,4 +13,8 @@ export class SearchFieldComponent {
   stopPropagation(event: Event): void {
     event.stopPropagation();
   }
+
+  get currentValue() {
+    return this.value || '';
+  }
 }
