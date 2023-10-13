@@ -21,6 +21,10 @@ export class UsersDropdownComponent {
 
   constructor(private userService: UserService) { }
 
+  ngOnInit() {
+    this.fetchUsers();
+  }
+
   toggle() {
     this.toggleDropdown.emit();
   }
@@ -28,6 +32,10 @@ export class UsersDropdownComponent {
   onSearchChange(event: Event) {
     const target = event.target as HTMLInputElement;
     this.searchTerm = target.value;
+    this.fetchUsers();
+  }
+
+  fetchUsers() {
     this.userService.users(this.searchTerm).subscribe((response: any) => {
       this.items = response;
     });
