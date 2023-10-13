@@ -61,8 +61,8 @@ export class LoginComponent {
 
     const payload = this.loginForm.value;
 
-    this.authService.login(payload)?.subscribe((res) => {
-      this.alertService.success(res?.msg, 'Success');
+    this.authService.login(payload)?.subscribe((response : any) => {
+      this.alertService.success(response?.msg, 'Success');
       this.initForm();
     });
   }

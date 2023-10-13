@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search-field',
@@ -7,6 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class SearchFieldComponent {
   @Input() properties: any;
+  @Input() value: string;
+  @Output() onChange = new EventEmitter<any>();
 
   stopPropagation(event: Event): void {
     event.stopPropagation();

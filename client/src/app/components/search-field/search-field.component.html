@@ -2,5 +2,5 @@
   <div class="search-icon">
     <img src="assets/icons/search.svg" alt="Search" />
   </div>
-  <input class="search-field" type="text" [placeholder]="properties.placeholder" (click)="stopPropagation($event)" />
+  <input class="search-field" type="text" [value]="value" [placeholder]="properties.placeholder" (change)="onChange.emit($event)" (click)="stopPropagation($event)" />
 </div>

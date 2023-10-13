@@ -1,8 +1,16 @@
 <div #dropdown class="users-dropdown" *ngIf="showDropdown">
-  <app-search-field [properties]="searchProperties"></app-search-field>
+  <app-search-field [properties]="searchProperties" (onChange)="onSearchChange($event)" [value]="searchTerm"></app-search-field>
   <ul>
-    <li *ngFor="let item of filteredItems" (click)="selectItem(item)">
-      {{ item }}
+    <li *ngFor="let item of items" (click)="selectItem(item)">
+      <div class="chat-card">
+        <div class="thumbnail">{{ nameInitials(item.name) }}</div>
+        <div class="content">
+          <p class="name">{{ item.name }}</p>
+        </div>
+        <div class="action">
+          <img src="assets/icons/chevron-right.svg" alt="Chevron Right" />
+        </div>
+      </div>
     </li>
   </ul>
 </div>

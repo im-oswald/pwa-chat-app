@@ -66,9 +66,11 @@ router.post('/', [
 // @route           /api/users
 // @description     to get the list of users
 // @access          Private
-router.get('/', auth, async(_req, res) => {
+router.get('/', auth, async(req, res) => {
   try {
-    const users = await User.find({}).select('-password');
+    const users = await User.find({
+      name: { $regex: new RegExp(req.query.term, 'i') },
+    }).select('-password');
 
     return res.json(users);
   } catch(err) {

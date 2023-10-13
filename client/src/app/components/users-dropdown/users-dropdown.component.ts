@@ -1,5 +1,11 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { UserService } from '@app/services';
+import { Utils } from '@src/utils';
 
+interface User {
+  id: string;
+  name: string;
+};
 @Component({
   selector: 'app-users-dropdown',
   templateUrl: './users-dropdown.component.html',
@@ -10,27 +16,24 @@ export class UsersDropdownComponent {
   @Input() showDropdown: boolean;
   @Input() searchProperties: any;
   @Output() toggleDropdown = new EventEmitter<void>();
-  items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-  ];
-
-  filteredItems: string[] = [];
+  items: Array<User> = [];
   searchTerm = '';
+
+  constructor(private userService: UserService) { }
 
   toggle() {
     this.toggleDropdown.emit();
   }
 
-  onSearchChange() {
-    this.filteredItems = this.items.filter((item) =>
-      item.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+  onSearchChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchTerm = target.value;
+    this.userService.users(this.searchTerm).subscribe((response: any) => {
+      this.items = response;
+    });
   }
 
-  selectItem(item: string) {
-    this.searchTerm = item;
+  selectItem(item: User) {
     this.toggle();
   }
 
@@ -45,5 +48,9 @@ export class UsersDropdownComponent {
       this.toggle();
       this.dropdown.nativeElement.classList.remove('rotate');
     }
+  }
+
+  nameInitials(name: string)  {
+    return Utils.getInitials(name, 2);
   }
 }

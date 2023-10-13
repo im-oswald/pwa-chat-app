@@ -6,8 +6,8 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-height: 400px;
   overflow-y: auto;
-  width: 200px;
-  padding: 10px;
+  width: 240px;
+  padding: 7px;
 
   ul {
     list-style: none;
@@ -15,11 +15,47 @@
   }
 
   li {
-    padding: 5px;
     cursor: pointer;
 
-    &:hover {
-      background: #f0f0f0;
+    .chat-card {
+      display: flex;
+      padding: 10px;
+      align-items: flex-start;
+      gap: 16px;
+      cursor: pointer;
+      align-self: stretch;
+    
+      &:hover, .active {
+        border-radius: 12px;
+        background: rgba(97, 94, 240, 0.06);    
+      }
+    
+      .thumbnail {
+        padding: 10px;
+        background: var(--Primary, #615EF0);
+        color: white;
+        width: 35px;
+        height: 24px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+    
+      .content {
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      .action {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
     }
   }
 }

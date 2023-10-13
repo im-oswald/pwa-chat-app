@@ -86,8 +86,8 @@ export class SignupComponent {
 
     const payload = this.signupForm.value;
 
-    this.userService.register(payload)?.subscribe((res) => {
-      this.alertService.success(res?.msg, 'Success');
+    this.userService.register(payload)?.subscribe((response: any) => {
+      this.alertService.success(response?.msg, 'Success');
       this.initForm();
     });
   }

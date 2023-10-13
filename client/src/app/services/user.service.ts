@@ -22,7 +22,16 @@ export class UserService {
         return error;
       }),
       map(response => response),
-      tap(email=> console.log('Testing: ', email)),
+      tap(response => console.log('Testing: ', response)),
+    );
+  }
+
+  users(term?: string): Observable<any> {
+    const response = this.http.get<any>(`${this.apiUrl}/api/users?term=${term}`);
+
+    return response.pipe(
+      map(response => response),
+      tap(response => console.log('Testing: ', response)),
     );
   }
 }
