@@ -25,13 +25,12 @@ export class AppComponent {
     this.dbService.onDBReady().subscribe((isDBReady) => {
       if (isDBReady) {
         this.authService.checkUserLoggedIn();
-        this.authService.isLoggedIn.subscribe((loggedIn) => this.watchLoggedIn(loggedIn));
+        this.authService.isLoggedInObseravable().subscribe((loggedIn) => this.watchLoggedIn(loggedIn));
       }
     })
   }
 
   ngOnDestroy() {
-    this.authService.isLoggedIn.unsubscribe(); // Unsubscribe to prevent memory leaks.
     this.clearInterval();
   }
 

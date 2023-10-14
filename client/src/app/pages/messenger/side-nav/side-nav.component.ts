@@ -16,6 +16,14 @@ export class SideNavComponent {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.isDataStoredObserable().subscribe((isStored) => {
+      if (isStored) {
+        this.fetchUserData();
+      }
+    });
+  }
+
+  fetchUserData() {
     this.authService.fetchUserData().subscribe((data) => {
       this.userData = data as User;
     });

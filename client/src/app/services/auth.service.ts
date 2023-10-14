@@ -7,10 +7,11 @@ import { DBService } from "@app/services";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  apiUrl: string = environment.apiUrl;
-  isLoggedIn = new BehaviorSubject<boolean | undefined>(undefined);
-  tokenKey = "authToken";
-  dataKey = "userData";
+  private apiUrl: string = environment.apiUrl;
+  private isLoggedIn = new BehaviorSubject<boolean | undefined>(undefined);
+  private isDataStored = new BehaviorSubject<boolean>(false);
+  private tokenKey = "authToken";
+  private dataKey = "userData";
 
   constructor(
     private http: HttpClient,
@@ -43,6 +44,7 @@ export class AuthService {
   storeUserData(token: string) {
     this.dbService.storeToken({ id: this.tokenKey, token }).subscribe(() => {
       this.isLoggedIn.next(true);
+      this.checkUserLoggedIn();
     });
   }
 
@@ -55,6 +57,7 @@ export class AuthService {
       next: (res) => {
         this.dbService.storeData({ id: this.dataKey, ...res }).subscribe(() => {
           this.isLoggedIn.next(!!res);
+          this.isDataStored.next(true);
         });
       },
       error: (err) => {
@@ -75,5 +78,13 @@ export class AuthService {
         this.checkUserLoggedIn();
       });
     });
+  }
+
+  isDataStoredObserable(): Observable<boolean> {
+    return this.isDataStored.asObservable();
+  }
+
+  isLoggedInObseravable(): Observable<boolean | undefined> {
+    return this.isLoggedIn.asObservable();
   }
 }
