@@ -13,6 +13,7 @@ export class UsersDropdownComponent {
   @Input() showDropdown: boolean;
   @Input() searchProperties: any;
   @Output() toggleDropdown = new EventEmitter<void>();
+  @Output() itemSelected = new EventEmitter<User>();
   items: Array<User> = [];
   searchTerm = '';
 
@@ -40,6 +41,7 @@ export class UsersDropdownComponent {
 
   selectItem(item: User) {
     this.toggle();
+    this.itemSelected.emit(item);
   }
 
   @HostListener('document:click', ['$event'])

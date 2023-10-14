@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from '@app/models';
 
 @Component({
   selector: 'app-messenger',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./messenger.component.scss']
 })
 export class MessengerComponent {
+  selectedUser: User;
 
+  userSelected(user: User) {
+    this.selectedUser = user;
+  }
 }

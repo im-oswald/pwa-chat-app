@@ -7,6 +7,7 @@
         [searchProperties]="userSearchProperties"
         [showDropdown]="showUserDropdown"
         (toggleDropdown)="toggleUserDropdown()"
+        (itemSelected)="emitUser($event)"
       ></app-users-dropdown>
     </div>
   </div>

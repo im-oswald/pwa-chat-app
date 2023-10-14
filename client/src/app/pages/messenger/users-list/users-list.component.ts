@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { User } from '@app/models';
 
 @Component({
   selector: 'app-users-list',
@@ -7,6 +8,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class UsersListComponent {
   @ViewChild('addIcon') addIcon: ElementRef;
+  @Output() userSelected = new EventEmitter<User>();
   users: Array<Object> = [
     {
       id: 0,
@@ -31,5 +33,9 @@ export class UsersListComponent {
 
   toggleUserDropdown() {
     this.showUserDropdown = !this.showUserDropdown;
+  }
+
+  emitUser(user: User) {
+    this.userSelected.emit(user);
   }
 }

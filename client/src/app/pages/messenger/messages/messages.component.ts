@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from '@app/models';
 
 @Component({
   selector: 'app-messages',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent {
+  @Input() selectedUser: User;
 
+  ngOnChanges(changes: any) {
+    if (changes && changes.selectedUser) {
+      this.selectedUser = changes.selectedUser.currentValue;
+    }
+  }
 }
