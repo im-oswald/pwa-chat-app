@@ -23,7 +23,7 @@ export class AuthErrorInterceptor implements HttpInterceptor {
           // Clear the token that will logout the user
           // Ignore the auth endpoint as it has its own handler
           if (request.method != "GET" && !request.url.includes("api/auth")) {
-            this.authService.clearToken();
+            this.authService.logout();
           }
         }
         return next.handle(request);

@@ -12,6 +12,7 @@ export class AppComponent {
   title = 'Chat App';
   interval: ReturnType<typeof setTimeout> | undefined;
   isLoading: boolean = true;
+  loginThrottling: number = 60000;
 
   constructor(
     private authService: AuthService,
@@ -49,7 +50,7 @@ export class AppComponent {
 
     if (loggedIn) {
       if (this.interval == undefined) {
-        this.interval = setInterval(this.authService.checkUserLoggedIn.bind(this.authService), 5000);
+        this.interval = setInterval(this.authService.checkUserLoggedIn.bind(this.authService), this.loginThrottling);
       }
     } else {
       this.clearInterval()

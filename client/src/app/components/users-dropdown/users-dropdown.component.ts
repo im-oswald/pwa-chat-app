@@ -1,11 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { UserService } from '@app/services';
 import { Utils } from '@src/utils';
+import { User } from '@app/models';
 
-interface User {
-  id: string;
-  name: string;
-};
 @Component({
   selector: 'app-users-dropdown',
   templateUrl: './users-dropdown.component.html',

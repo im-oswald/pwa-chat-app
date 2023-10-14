@@ -10,6 +10,7 @@ export class AuthService {
   apiUrl: string = environment.apiUrl;
   isLoggedIn = new BehaviorSubject<boolean | undefined>(undefined);
   tokenKey = "authToken";
+  dataKey = "userData";
 
   constructor(
     private http: HttpClient,
@@ -49,22 +50,30 @@ export class AuthService {
     return this.dbService.getToken(this.tokenKey);
   }
 
-  clearToken() {
-    this.dbService.clearToken(this.tokenKey).subscribe(() => {
-      this.checkUserLoggedIn();
-    });
-  }
-
   checkUserLoggedIn() {
     return this.getUserData().subscribe({
       next: (res) => {
-        this.isLoggedIn.next(!!res);
+        this.dbService.storeData({ id: this.dataKey, ...res }).subscribe(() => {
+          this.isLoggedIn.next(!!res);
+        });
       },
       error: (err) => {
         if (err.status === 401) {
           this.isLoggedIn.next(false);
         }
       }
+    });
+  }
+
+  fetchUserData(): Observable<Object | null> {
+    return this.dbService.getData(this.dataKey);
+  }
+
+  logout() {
+    this.dbService.clear(this.dataKey).subscribe(() => {
+      this.dbService.clear(this.tokenKey).subscribe(() => {
+        this.checkUserLoggedIn();
+      });
     });
   }
 }

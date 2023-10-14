@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { AuthService } from '@src/app/services';
+import { Utils } from '@src/utils';
+import { User } from '@app/models';
 
 @Component({
   selector: 'app-side-nav',
@@ -8,9 +10,16 @@ import { AuthService } from '@src/app/services';
 })
 export class SideNavComponent {
   @ViewChild('settingsIcon') settingsIcon: ElementRef;
+  userData: User | null;
   showMenu: boolean = false;
 
   constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+    this.authService.fetchUserData().subscribe((data) => {
+      this.userData = data as User;
+    });
+  }
 
   toggleMenu() {
 
@@ -23,7 +32,11 @@ export class SideNavComponent {
   }
 
   logout() {
-    this.authService.clearToken();
+    this.authService.logout();
+  }
+
+  get loggedInUserInitials() {
+    return this.userData ? Utils.getInitials(this.userData.name, 2) : '';
   }
 
   @HostListener('document:click', ['$event'])

@@ -46,7 +46,8 @@ router.post('/login', [
       if(isMatch) {
         const payload = {
           user: {
-            id: user.id
+            id: user.id,
+            name: user.name,
           }
         }
 

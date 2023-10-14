@@ -3,9 +3,9 @@ import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class DBService {
-  private dbName = 'authTokensDB';
-  private dbVersion = 4;
-  private tokenStoreName = 'authTokens';
+  private dbName = 'userDataDB';
+  private dbVersion = 7;
+  private storeName = 'userData';
   private db: IDBDatabase | null = null;
   private dbReadySubject = new BehaviorSubject<boolean>(false);
 
@@ -28,8 +28,8 @@ export class DBService {
 
     request.onupgradeneeded = (event: Event) => {
       this.db = (event.target as IDBRequest).result;
-      if (!this.db?.objectStoreNames.contains(this.tokenStoreName)) {
-        this.db?.createObjectStore(this.tokenStoreName, {
+      if (!this.db?.objectStoreNames.contains(this.storeName)) {
+        this.db?.createObjectStore(this.storeName, {
           keyPath: 'id',
         });
       }
@@ -48,8 +48,8 @@ export class DBService {
         return;
       }
 
-      const transaction = this.db.transaction([this.tokenStoreName], 'readwrite');
-      const objectStore = transaction.objectStore(this.tokenStoreName);
+      const transaction = this.db.transaction([this.storeName], 'readwrite');
+      const objectStore = transaction.objectStore(this.storeName);
 
       const request = objectStore.put(tokenData);
 
@@ -74,8 +74,8 @@ export class DBService {
         return;
       }
 
-      const transaction = this.db.transaction([this.tokenStoreName], 'readonly');
-      const objectStore = transaction.objectStore(this.tokenStoreName);
+      const transaction = this.db.transaction([this.storeName], 'readonly');
+      const objectStore = transaction.objectStore(this.storeName);
 
       const request = objectStore.get(userId);
 
@@ -96,7 +96,7 @@ export class DBService {
     });
   }
 
-  clearToken(userId: string): Observable<void> {
+  clear(userId: string): Observable<void> {
     return new Observable<void>((subscriber) => {
       if (!this.db) {
         console.error('IndexedDB not available.');
@@ -104,8 +104,8 @@ export class DBService {
         return;
       }
   
-      const transaction = this.db.transaction([this.tokenStoreName], 'readwrite');
-      const objectStore = transaction.objectStore(this.tokenStoreName);
+      const transaction = this.db.transaction([this.storeName], 'readwrite');
+      const objectStore = transaction.objectStore(this.storeName);
   
       const request = objectStore.delete(userId);
 
@@ -118,6 +118,62 @@ export class DBService {
       request.onerror = (event) => {
         console.error('Error clearing token:', (event.target as IDBRequest).error);
         subscriber.error('Error clearing token.');
+      };
+    });
+  }
+
+  storeData(data: any): Observable<void> {
+    return new Observable<void>((subscriber) => {
+      if (!this.db) {
+        console.error('IndexedDB not available.');
+        subscriber.error('IndexedDB not available.');
+        return;
+      }
+
+      const transaction = this.db.transaction([this.storeName], 'readwrite');
+      const objectStore = transaction.objectStore(this.storeName);
+
+      const request = objectStore.put(data);
+
+      request.onsuccess = () => {
+        subscriber.next();
+        subscriber.complete();
+      };
+
+      request.onerror = (event: Event) => {
+        console.error('Error storing data:', (event.target as IDBRequest).error);
+        subscriber.error('Error storing data.');
+      };
+    });
+  }
+
+  getData(userId: string): Observable<Object | null> {
+    return new Observable<string | null>((subscriber) => {
+      if (!this.db) {
+        console.error('IndexedDB not available.');
+        subscriber.next(null);
+        subscriber.complete();
+        return;
+      }
+
+      const transaction = this.db.transaction([this.storeName], 'readonly');
+      const objectStore = transaction.objectStore(this.storeName);
+
+      const request = objectStore.get(userId);
+
+      request.onsuccess = () => {
+        const data = request.result;
+        if (data) {
+          subscriber.next(data);
+        } else {
+          subscriber.next(null);
+        }
+        subscriber.complete();
+      };
+
+      request.onerror = (event: Event) => {
+        console.error('Error retrieving data:', (event.target as IDBRequest).error);
+        subscriber.error('Error retrieving data.');
       };
     });
   }
