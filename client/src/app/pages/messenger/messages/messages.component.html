@@ -8,7 +8,15 @@
       </div>
     </div>
   </div>
-  <div class="messages-list"></div>
+  <div class="messages-list">
+    <div *ngFor="let messageGroup of messages">
+      <app-message-item
+        [messageGroup]="messageGroup"
+        [currentUser]="currentUser"
+        [selectedUser]="selectedUser"
+      ></app-message-item>
+    </div>
+  </div>
   <div class="message-composer">
     <app-message-field
       class="container"

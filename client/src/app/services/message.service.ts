@@ -18,4 +18,13 @@ export class MessageService {
       tap(response => console.log('Testing: ', response)),
     );
   }
+
+  getMessages(to: string, from: string): Observable<any> {
+    const response = this.http.get<any>(`${this.apiUrl}/api/messages?to=${to}&from=${from}`);
+
+    return response.pipe(
+      map(response => response),
+      tap(response => console.log('Testing: ', response)),
+    );
+  }
 }
