@@ -10,6 +10,12 @@
   </div>
   <div class="messages-list"></div>
   <div class="message-composer">
-    <app-message-field class="container" [properties]="messageProperties" (onSend)="sendMessage($event)" [value]="messageContent"></app-message-field>
+    <app-message-field
+      class="container"
+      [properties]="messageProperties"
+      (onSend)="sendMessage($event)"
+      (onMessageChange)="messageChange($event)"
+      [value]="messageContent"
+    ></app-message-field>
   </div>
 </div>

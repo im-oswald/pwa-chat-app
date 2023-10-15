@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { User } from '@app/models';
+import { AuthService, MessageService } from '@src/app/services';
 import { Utils } from '@src/utils';
 
 @Component({
@@ -14,6 +15,11 @@ export class MessagesComponent {
     placeholder: "Type a message",
   }
 
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+  ) { }
+
   ngOnChanges(changes: any) {
     if (changes && changes.selectedUser) {
       this.selectedUser = changes.selectedUser.currentValue;
@@ -24,7 +30,17 @@ export class MessagesComponent {
     return Utils.getInitials(this.selectedUser.name, 2);
   }
 
-  sendMessage(message: string) {
+  messageChange(message: string) {
+    this.messageContent = message;
+  }
 
+  sendMessage(message: string) {
+    this.authService.fetchUserData().subscribe((data) => {
+      const user =  data as User;
+      const from = user?._id;
+      this.messageService.sendMessage({ message, from, to: this.selectedUser._id }).subscribe((res) => {
+        this.messageContent = '';
+      })
+    });
   }
 }

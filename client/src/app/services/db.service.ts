@@ -148,7 +148,7 @@ export class DBService {
   }
 
   getData(userId: string): Observable<Object | null> {
-    return new Observable<string | null>((subscriber) => {
+    return new Observable<Object | null>((subscriber) => {
       if (!this.db) {
         console.error('IndexedDB not available.');
         subscriber.next(null);

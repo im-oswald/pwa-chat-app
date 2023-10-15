@@ -7,11 +7,13 @@ const MessageSchema = new mongoose.Schema({
   },
   receiver: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
+    required: true
   },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
+    required: true
   },
   readAt: {
     type: Date,

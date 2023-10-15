@@ -1,5 +1,5 @@
 <div class="message-container">
-  <input class="message-field" type="text" [(ngModel)]="value" [placeholder]="properties.placeholder" (click)="stopPropagation($event)" />
+  <input class="message-field" type="text" (change)="onMessageChange.emit(value)" [(ngModel)]="value" [placeholder]="properties.placeholder" (click)="stopPropagation($event)" />
   <div class="send-icon" (click)="sendMessage()">
     <img src="assets/icons/send.svg" alt="Send" />
   </div>

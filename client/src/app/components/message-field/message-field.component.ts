@@ -9,6 +9,7 @@ export class MessageFieldComponent {
   @Input() properties: any;
   @Input() value: string;
   @Output() onSend = new EventEmitter<string>();
+  @Output() onMessageChange = new EventEmitter<string>();
 
   stopPropagation(event: Event): void {
     event.stopPropagation();

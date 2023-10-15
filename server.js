@@ -18,6 +18,7 @@ app.get('/', (_req, res) => res.send('API is running'));
 // Define the custom routes
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/messages', require('./routes/messages'));
 
 const PORT = process.env.PORT || 5000;
 
