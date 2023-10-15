@@ -15,7 +15,8 @@ import {
   MessageComponent,
   MenuComponent,
   UsersDropdownComponent,
-  SearchFieldComponent
+  SearchFieldComponent,
+  MessageFieldComponent,
 } from '@app/components';
 
 @NgModule({
@@ -29,6 +30,7 @@ import {
     MenuComponent,
     UsersDropdownComponent,
     SearchFieldComponent,
+    MessageFieldComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,27 @@
+.message-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #F3F3F3;
+  border-radius: 12px;
+  padding: 6px;
+  background-color: #F3F3F3;
+
+  .send-icon {
+    cursor: pointer;
+    margin: 0 8px 0 8px;
+
+    img {
+      width: 20px;
+      height: 30px;
+    }
+  }
+
+  .message-field {
+    border: none;
+    width: 100%;
+    background: transparent;
+    outline: none;
+    height: 25px;
+    margin-left: 8px;
+  }
+}

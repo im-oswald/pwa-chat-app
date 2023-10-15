@@ -1,1 +1,15 @@
-<p>messages works!</p>
+<div class="messages" *ngIf="selectedUser">
+  <div class="user-info">
+    <div class="user-card">
+      <div class="thumbnail">{{ nameInitials }}</div>
+      <div class="content">
+        <div class="name">{{ selectedUser.name }}</div>
+        <div class="status"><span></span> Online</div>
+      </div>
+    </div>
+  </div>
+  <div class="messages-list"></div>
+  <div class="message-composer">
+    <app-message-field class="container" [properties]="messageProperties" (onSend)="sendMessage($event)" [value]="messageContent"></app-message-field>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+.messages {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .user-info {
+    display: flex;
+    padding: 14.8px;
+    padding-left: 24px;
+    align-items: center;
+    border-bottom: 1px solid var(--Border, #E5E5E5);
+
+    .user-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      flex: 1 0 0;
+
+      .thumbnail {
+        padding: 10px;
+        background: var(--Primary, #615EF0);
+        color: white;
+        width: 25px;
+        height: 24px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: auto;
+        margin-bottom: auto;
+
+        .status {
+          margin-top: 4px;
+          font-size: 12px;
+          color: var(--TextSecondary, #A1A1A1);
+
+          span {
+            margin-top: 2px;
+            margin-right: 2px;
+            border-radius: 50%;
+            display: inline-block;
+            background: #68D391;
+            width: 10px;
+            height: 10px;
+          }
+        }
+      }
+    }
+
+  }
+
+  .message-composer {
+    display: flex;
+    padding: 24px;
+    align-items: center;
+    gap: -55px;
+    align-self: stretch;
+    padding: 24px;
+    border-top: 1px solid var(--Border, #E5E5E5);
+    margin-top: auto;
+
+    .container {
+      width: 100%;
+    }
+  }
+}
