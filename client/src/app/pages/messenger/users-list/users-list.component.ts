@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Chat, User } from '@app/models';
-import { AuthService, MessageService } from '@app/services';
+import { Chat, Message, User } from '@app/models';
+import { AuthService, EventService, MessageService } from '@app/services';
 import { Utils } from '@src/utils';
 
 @Component({
@@ -24,13 +24,27 @@ export class UsersListComponent {
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
+    private eventService: EventService,
   ) { }
 
   ngOnInit() {
+    this.eventService.onNewMessage((message) => {
+      this.chats = this.ammendLastMessageToChats(message);
+    });
+
     this.authService.fetchUserData().subscribe((data) => {
       this.currentUser = data as User;
       this.fetchChats();
     });
+  }
+
+  ammendLastMessageToChats(message: Message) {
+    return this.chats.map((chat) => (
+      {
+        ...chat,
+        ...([message.receiver, message.sender].includes(chat.user._id) && {lastMessage: message})
+      }
+    ));
   }
 
   fetchChats() {

@@ -3,6 +3,7 @@ const { ObjectId } = require('mongodb');
 const { check, validationResult } = require('express-validator');
 const Message = require('../models/Message');
 const auth = require('../middlewares/auth');
+const { io } = require('../server');
 
 const router = express.Router();
 
@@ -26,6 +27,8 @@ router.post('/', auth, [
     const messageObj = new Message({ receiver: to, sender: from, content: message });
 
     await messageObj.save();
+
+    io.emit('newMessage', messageObj);
 
     return res.json({ message: messageObj });
 

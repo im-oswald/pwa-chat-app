@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Message, User } from '@app/models';
-import { AuthService, MessageService } from '@src/app/services';
+import { AuthService, EventService, MessageService } from '@src/app/services';
 import { Utils } from '@src/utils';
 
 @Component({
@@ -20,9 +20,16 @@ export class MessagesComponent {
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
+    private eventService: EventService,
   ) { }
 
   ngOnInit() {
+    this.eventService.onNewMessage((message) => {
+      let messages = this.flattenMessages();
+      messages.push(message);
+      this.messages = this.buildMessages(messages);
+    });
+
     this.authService.fetchUserData().subscribe((data) => {
       this.currentUser = data as User;
     });
@@ -61,10 +68,7 @@ export class MessagesComponent {
 
   sendMessage(message: string) {
     const from = this.currentUser?._id;
-    this.messageService.sendMessage({ message, from, to: this.selectedUser._id }).subscribe((res) => {
-      let messages = this.flattenMessages();
-      messages.push(res.message);
-      this.messages = this.buildMessages(messages);
+    this.messageService.sendMessage({ message, from, to: this.selectedUser._id }).subscribe(() => {
       this.messageContent = '';
     })
   }

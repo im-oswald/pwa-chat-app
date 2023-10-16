@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '@app/app-routing.module';
-import { MessageService, UserService } from '@app/services';
+import { MessageService, UserService, EventService } from '@app/services';
 import {
   SideNavComponent,
   UsersListComponent,
@@ -44,6 +44,7 @@ import {
     HttpClient,
     UserService,
     MessageService,
+    EventService,
   ]
 })
 export class MessengerModule { }
