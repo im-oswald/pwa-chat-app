@@ -31,9 +31,17 @@ export class MessagesComponent {
   fetchMessages() {
     const from = this.currentUser?._id;
     this.messageService.getMessages(this.selectedUser._id, from).subscribe((res) => {
-      const messages = Utils.addIsReceived(res.messages, this.currentUser);
-      this.messages = Utils.groupMessages(messages);
+      this.messages = this.buildMessages(res.messages);
     });
+  }
+
+  buildMessages(messages: Array<Message>): Array<Array<Message>> {
+    messages = Utils.addIsReceived(messages, this.currentUser);
+    return Utils.groupMessages(messages);
+  }
+
+  flattenMessages(): Array<Message> {
+    return this.messages.reduce((acc, val) => acc.concat(val), []);
   }
 
   ngOnChanges(changes: any) {
@@ -54,6 +62,9 @@ export class MessagesComponent {
   sendMessage(message: string) {
     const from = this.currentUser?._id;
     this.messageService.sendMessage({ message, from, to: this.selectedUser._id }).subscribe((res) => {
+      let messages = this.flattenMessages();
+      messages.push(res.message);
+      this.messages = this.buildMessages(messages);
       this.messageContent = '';
     })
   }
