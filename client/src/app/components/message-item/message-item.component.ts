@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Message, User } from '@src/app/models';
+import { Utils } from '@src/utils';
 
 @Component({
   selector: 'app-message-item',
@@ -14,5 +15,13 @@ export class MessageItemComponent {
 
   ngOnInit() {
     this.message = this.messageGroup[0];
+  }
+
+  get currentUserNameInitials(): string {
+    return Utils.getInitials(this.currentUser.name, 2);
+  }
+
+  get selectedUserNameInitials(): string {
+    return Utils.getInitials(this.selectedUser.name, 2);
   }
 }
