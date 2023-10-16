@@ -47,4 +47,8 @@ export class UsersListComponent {
   emitUser(user: User) {
     this.userSelected.emit(user);
   }
+
+  openChat(chat: Chat) {
+    this.userSelected.emit(chat.user);
+  }
 }

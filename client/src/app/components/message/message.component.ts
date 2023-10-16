@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Message, User } from '@src/app/models';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Chat, Message, User } from '@src/app/models';
 import { Utils } from '@src/utils';
 
 @Component({
@@ -9,6 +9,7 @@ import { Utils } from '@src/utils';
 })
 export class MessageComponent {
   @Input() chat: any;
+  @Output() onSelect = new EventEmitter<Chat>();
   user: User;
   message: Message;
 
@@ -23,5 +24,9 @@ export class MessageComponent {
 
   get nameInitials(): string {
     return Utils.getInitials(this.user.name, 2);
+  }
+
+  selectChat() {
+    this.onSelect.emit(this.chat);
   }
 }

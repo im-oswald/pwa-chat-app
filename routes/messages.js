@@ -74,7 +74,7 @@ router.get('/chat-list', auth, async (req, res) => {
         },
       },
       {
-        $sort: { date: -1 }, // Sort messages by date in descending order
+        $sort: { date: -1 },
       },
       {
         $group: {
@@ -85,7 +85,15 @@ router.get('/chat-list', auth, async (req, res) => {
               else: '$sender',
             },
           },
-          lastMessage: { $first: '$$ROOT' }, // Get the first (most recent) message in each group
+          lastMessage: {
+            $max: {
+              $cond: {
+                if: { $eq: ['$sender', userId] },
+                then: '$$ROOT',
+                else: '$$ROOT',
+              },
+            },
+          },
         },
       },
       {
@@ -97,12 +105,15 @@ router.get('/chat-list', auth, async (req, res) => {
         },
       },
       {
-        $unwind: '$user', // Unwind the user array created by the $lookup
+        $unwind: '$user',
       },
       {
         $project: {
-          _id: 1,
-          user: 1,
+          _id: 0, // Exclude _id field
+          user: {
+            _id: 1,
+            name: 1, // Include the user's name
+          },
           lastMessage: 1,
         },
       },
