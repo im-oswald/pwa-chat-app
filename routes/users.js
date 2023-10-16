@@ -69,6 +69,7 @@ router.post('/', [
 router.get('/', auth, async(req, res) => {
   try {
     const users = await User.find({
+      _id: { $ne: req.user.id },
       name: { $regex: new RegExp(req.query.term, 'i') },
     }).select('-password');
 

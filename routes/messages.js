@@ -117,6 +117,9 @@ router.get('/chat-list', auth, async (req, res) => {
           lastMessage: 1,
         },
       },
+      {
+        $sort: { 'lastMessage.date': -1 }, // Sort by the date of the last message
+      },
     ]).exec();
     
     return res.json({ chats: result });
