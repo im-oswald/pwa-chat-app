@@ -1,4 +1,5 @@
 const express = require('express');
+const { ObjectId } = require('mongodb');
 const { check, validationResult } = require('express-validator');
 const Message = require('../models/Message');
 const auth = require('../middlewares/auth');
@@ -58,4 +59,60 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// @route           /api/messages/chat-list
+// @description     to get all the chat heads of a user with last message
+// @access          Private
+router.get('/chat-list', auth, async (req, res) => {
+
+  const userId = new ObjectId(req.user.id)
+
+  try {
+    const result = await Message.aggregate([
+      {
+        $match: {
+          $or: [{ sender: userId }, { receiver: userId }],
+        },
+      },
+      {
+        $sort: { date: -1 }, // Sort messages by date in descending order
+      },
+      {
+        $group: {
+          _id: {
+            $cond: {
+              if: { $eq: ['$sender', userId] },
+              then: '$receiver',
+              else: '$sender',
+            },
+          },
+          lastMessage: { $first: '$$ROOT' }, // Get the first (most recent) message in each group
+        },
+      },
+      {
+        $lookup: {
+          from: 'users', // The name of the User model's collection
+          localField: '_id',
+          foreignField: '_id',
+          as: 'user',
+        },
+      },
+      {
+        $unwind: '$user', // Unwind the user array created by the $lookup
+      },
+      {
+        $project: {
+          _id: 1,
+          user: 1,
+          lastMessage: 1,
+        },
+      },
+    ]).exec();
+    
+    return res.json({ chats: result });
+
+  } catch(err) {
+    console.log(err);
+    return res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+  }
+})
 module.exports = router;

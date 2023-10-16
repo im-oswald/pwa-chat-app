@@ -15,8 +15,8 @@
     <app-search-field class="container" [properties]="messageSearchProperties"></app-search-field>
   </div>
   <div class="chats">
-    <div class="chat-item" *ngFor="let user of users">
-      <app-message [user]="user"></app-message>
+    <div class="chat-item" *ngFor="let chat of chats">
+      <app-message [chat]="chat" currentUser="currentUser"></app-message>
     </div>
   </div>
 </div>

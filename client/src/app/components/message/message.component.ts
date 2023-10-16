@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Message, User } from '@src/app/models';
 import { Utils } from '@src/utils';
 
 @Component({
@@ -7,12 +8,18 @@ import { Utils } from '@src/utils';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent {
-  @Input() user: any;
+  @Input() chat: any;
+  user: User;
+  message: Message;
+
+  ngOnInit() {
+    this.user = this.chat.user;
+    this.message = this.chat.lastMessage;
+    debugger
+  }
 
   get trimmedLastMessage(): string {
-    const message = this.user.last_message;
-    
-    return Utils.trimString(message, 40);
+    return Utils.trimString(this.message.content, 40);
   }
 
   get nameInitials(): string {

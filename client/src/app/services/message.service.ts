@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, catchError, map, tap } from "rxjs";
-import { ToastrService } from "ngx-toastr";
+import { Observable, map, tap } from "rxjs";
 import { environment } from "@src/environments/environment";
 
 @Injectable({ providedIn: 'root' })
@@ -21,6 +20,15 @@ export class MessageService {
 
   getMessages(to: string, from: string): Observable<any> {
     const response = this.http.get<any>(`${this.apiUrl}/api/messages?to=${to}&from=${from}`);
+
+    return response.pipe(
+      map(response => response),
+      tap(response => console.log('Testing: ', response)),
+    );
+  }
+
+  getChatList(): Observable<any> {
+    const response = this.http.get<any>(`${this.apiUrl}/api/messages/chat-list`);
 
     return response.pipe(
       map(response => response),
