@@ -15,7 +15,6 @@ export class MessageComponent {
   ngOnInit() {
     this.user = this.chat.user;
     this.message = this.chat.lastMessage;
-    debugger
   }
 
   get trimmedLastMessage(): string {
