@@ -1,5 +1,5 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const config = require('config');
 
 function extractToken (req) {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.decode(token, config.get('jwtSecret'));
+    const decoded = jwt.decode(token, process.env.JWT_SECRET);
     req.user = decoded.user;
 
     next();

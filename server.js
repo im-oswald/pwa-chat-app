@@ -1,11 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-const config = require('config');
 const socketIo = require('socket.io');
 const connectDB = require('./config/db');
 
-const clientBaseURL = config.get('clientBaseURL');
+const clientBaseURL = process.env.CLIENT_BASE_URL;
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, { cors: clientBaseURL });
