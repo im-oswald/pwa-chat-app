@@ -14,47 +14,37 @@ $container-padding: 2rem;
   left: calc(50% - $container-width / 2);
   padding: $container-padding;
 
-  .navigation {
+  .navigation, .greetings, .form {
     color: #333;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
+    font-style: normal;
     line-height: normal;
+  }
+
+  .navigation {
     text-align: right;
     margin-bottom: 3rem;
 
     .signup-cta {
       margin-left: 3px;
       color: #06F;
-      font-size: 14px;
-      font-style: normal;
       font-weight: 700;
-      line-height: normal;
       text-decoration-line: underline;
       cursor: pointer;
     }
   }
 
-  .greetings {
-    color: #757575;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-
   .form {
     margin-top: 8px;
 
-    .invalid-field{
+    .invalid-field {
       margin-top: 10px !important;
 
-      label {
+      label, input {
         color: #e00400 !important;
       }
-      input {
-        border-color: #e00400 !important;
-      }
+
       .error-block {
         color: red;
         font-size: 12px;
@@ -63,11 +53,8 @@ $container-padding: 2rem;
     }
 
     .title {
-      color: #333;
       font-size: 24px;
-      font-style: bold;
       font-weight: 500;
-      line-height: normal;
       margin-bottom: 2rem;
     }
 
@@ -75,11 +62,7 @@ $container-padding: 2rem;
       margin-top: 20px;
 
       label {
-        color: #333;
-        font-size: 14px;
-        font-style: normal;
         font-weight: 500;
-        line-height: normal;
       }
 
       input {
@@ -123,9 +106,7 @@ $container-padding: 2rem;
     margin-top: 1.5rem;
     color: #06F;
     font-size: 12px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
     text-decoration-line: underline;
     cursor: pointer;
   }

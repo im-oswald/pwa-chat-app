@@ -1,4 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/mulish');
+
 $container-height: 70%;
 $container-width: 25%;
 $container-padding: 2rem;
@@ -17,47 +18,31 @@ $container-font-family: "Mulish", sans-serif;
   padding: $container-padding;
   font-family: $container-font-family;
 
-  .navigation {
+  .navigation, .greetings, .form {
     color: #333;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
     line-height: normal;
-    text-align: right;
-    margin-bottom: 3rem;
 
     .signup-cta {
       margin-left: 3px;
       color: #06F;
-      font-size: 14px;
-      font-style: normal;
       font-weight: 700;
-      line-height: normal;
       text-decoration-line: underline;
       cursor: pointer;
     }
   }
 
-  .greetings {
-    color: #757575;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-
   .form {
     margin-top: 8px;
 
-    .invalid-field{
+    .invalid-field {
       margin-top: 10px !important;
 
-      label {
+      label, input {
         color: #e00400 !important;
       }
-      input {
-        border-color: #e00400 !important;
-      }
+
       .error-block {
         color: red;
         font-size: 12px;
@@ -68,9 +53,7 @@ $container-font-family: "Mulish", sans-serif;
     .title {
       color: #333;
       font-size: 24px;
-      font-style: bold;
       font-weight: 500;
-      line-height: normal;
       margin-bottom: 2rem;
     }
 
@@ -78,11 +61,7 @@ $container-font-family: "Mulish", sans-serif;
       margin-top: 20px;
 
       label {
-        color: #333;
-        font-size: 14px;
-        font-style: normal;
         font-weight: 500;
-        line-height: normal;
       }
 
       input {
@@ -126,9 +105,7 @@ $container-font-family: "Mulish", sans-serif;
     margin-top: 1.5rem;
     color: #06F;
     font-size: 12px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
     text-decoration-line: underline;
     cursor: pointer;
   }
