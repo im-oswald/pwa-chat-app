@@ -53,4 +53,26 @@ export class Utils {
 
     return groupedMessages;
   }
+
+  public static getTimeDifference(dateTime: Date) {
+    const currentDate: any = new Date();
+    const targetDate: any = new Date(dateTime);
+    const timeDifference = currentDate - targetDate;
+  
+    // Convert milliseconds to seconds
+    const seconds = Math.floor(timeDifference / 1000);
+  
+    if (seconds < 60) {
+      return seconds + "s";
+    } else if (seconds < 3600) {
+      const minutes = Math.floor(seconds / 60);
+      return minutes + "m";
+    } else if (seconds < 86400) {
+      const hours = Math.floor(seconds / 3600);
+      return hours + "h";
+    } else {
+      const days = Math.floor(seconds / 86400);
+      return days + "d";
+    }
+  }
 }

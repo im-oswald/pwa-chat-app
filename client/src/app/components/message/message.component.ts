@@ -26,6 +26,10 @@ export class MessageComponent {
     return Utils.getInitials(this.user.name, 2);
   }
 
+  get formattedTimeDifference() {
+    return Utils.getTimeDifference(this.message.date);
+  }
+
   selectChat() {
     this.onSelect.emit(this.chat);
   }
