@@ -24,15 +24,17 @@ export class MessagesComponent {
   ) { }
 
   ngOnInit() {
-    this.eventService.onNewMessage((message) => {
-      let messages = this.flattenMessages();
-      messages.push(message);
-      this.messages = this.buildMessages(messages);
-    });
+    this.eventService.onNewMessage((message) => this.pushMessage(message));
 
     this.authService.fetchUserData().subscribe((data) => {
       this.currentUser = data as User;
     });
+  }
+
+  pushMessage(message: Message) {
+    let messages = this.flattenMessages();
+    messages.push(message);
+    this.messages = this.buildMessages(messages);
   }
 
   fetchMessages() {
