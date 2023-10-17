@@ -3,7 +3,7 @@
     <app-side-nav></app-side-nav>
   </div>
   <div class="grid-item">
-    <app-users-list (userSelected)="userSelected($event)"></app-users-list>
+    <app-users-list (userSelected)="userSelected($event)" [selectedUser]="selectedUser"></app-users-list>
   </div>
   <div class="grid-item">
     <app-messages [selectedUser]="selectedUser"></app-messages>

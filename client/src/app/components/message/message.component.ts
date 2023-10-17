@@ -9,6 +9,7 @@ import { Utils } from '@src/utils';
 })
 export class MessageComponent {
   @Input() chat: any;
+  @Input() selectedUser: User;
   @Output() onSelect = new EventEmitter<Chat>();
   user: User;
   message: Message;

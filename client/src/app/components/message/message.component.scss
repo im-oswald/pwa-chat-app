@@ -6,7 +6,7 @@
   cursor: pointer;
   align-self: stretch;
 
-  &:hover, .active {
+  &:hover, &.active {
     border-radius: 12px;
     background: rgba(97, 94, 240, 0.06);    
   }

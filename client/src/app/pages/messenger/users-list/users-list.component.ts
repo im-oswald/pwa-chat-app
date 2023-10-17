@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Chat, Message, User } from '@app/models';
 import { AuthService, EventService, MessageService } from '@app/services';
 import { Utils } from '@src/utils';
@@ -11,6 +11,7 @@ import { Utils } from '@src/utils';
 export class UsersListComponent {
   @ViewChild('addIcon') addIcon: ElementRef;
   @Output() userSelected = new EventEmitter<User>();
+  @Input() selectedUser: User;
   chats: Array<Chat> = [];
   showUserDropdown: boolean = false;
   currentUser: User;

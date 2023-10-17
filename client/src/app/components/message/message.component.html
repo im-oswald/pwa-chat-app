@@ -1,4 +1,4 @@
-<div class="chat-card" (click)="selectChat()">
+<div class="chat-card" (click)="selectChat()" [selectedUser]="selectedUser" [user]="user" selectChat>
   <div class="thumbnail">{{ nameInitials }}</div>
   <div class="content">
     <div class="container">
