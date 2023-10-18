@@ -26,6 +26,14 @@ export class MessagesComponent {
   ngOnInit() {
     this.eventService.onNewMessage((message) => this.pushMessage(message));
 
+    this.authService.isDataStoredObserable().subscribe((isStored) => {
+      if (isStored) {
+        this.fetchUserData();
+      }
+    });
+  }
+
+  fetchUserData() {
     this.authService.fetchUserData().subscribe((data) => {
       this.currentUser = data as User;
     });
