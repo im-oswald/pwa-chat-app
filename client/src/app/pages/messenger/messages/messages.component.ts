@@ -24,7 +24,11 @@ export class MessagesComponent {
   ) { }
 
   ngOnInit() {
-    this.eventService.onNewMessage((message) => this.pushMessage(message));
+    this.eventService.onNewMessage((message) => {
+      if ([message.sender, message.receiver].includes(this.selectedUser._id)) {
+        this.pushMessage(message)
+      }
+    });
 
     this.authService.isDataStoredObserable().subscribe((isStored) => {
       if (isStored) {
