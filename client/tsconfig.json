@@ -23,6 +23,7 @@
       "ES2022",
       "dom"
     ],
+    "types": ["howler"],
     "paths": {
       "@src/*": [ "src/*" ],
       "@angular/*": [ "node_modules/@angular/*" ],
