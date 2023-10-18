@@ -6,4 +6,5 @@ export interface Message {
   readAt: Date | null;
   date: Date;
   isReceived: boolean;
+  beeped?: boolean;
 };

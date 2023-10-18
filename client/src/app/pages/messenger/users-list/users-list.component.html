@@ -16,7 +16,14 @@
   </div>
   <div class="chats">
     <div class="chat-item" *ngFor="let chat of chats">
-      <app-message [chat]="chat" (onSelect)="openChat($event)" [selectedUser]="selectedUser"></app-message>
+      <app-message
+        [chat]="chat"
+        (onSelect)="openChat($event)"
+        [selectedUser]="selectedUser"
+        [currentUser]="currentUser"
+        [newMessage]="newMessage"
+        pingChat
+      ></app-message>
     </div>
   </div>
 </div>

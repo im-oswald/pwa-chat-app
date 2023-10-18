@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { MessageService, UserService, EventService } from '@app/services';
-import { ScrollMessagesToBottomDirective, SelectChatDirective } from '@app/directives';
+import { ScrollMessagesToBottomDirective, SelectChatDirective, PingChatDirective } from '@app/directives';
 import {
   SideNavComponent,
   UsersListComponent,
@@ -36,6 +36,7 @@ import {
     MessageItemComponent,
     ScrollMessagesToBottomDirective,
     SelectChatDirective,
+    PingChatDirective,
   ],
   imports: [
     BrowserModule,

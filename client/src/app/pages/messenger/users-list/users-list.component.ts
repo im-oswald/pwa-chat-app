@@ -21,6 +21,7 @@ export class UsersListComponent {
   userSearchProperties: Object = {
     placeholder: "Search users",
   }
+  newMessage: Message;
 
   constructor(
     private messageService: MessageService,
@@ -31,6 +32,7 @@ export class UsersListComponent {
   ngOnInit() {
     this.eventService.onNewMessage((message) => {
       this.chats = this.ammendLastMessageToChats(message);
+      this.newMessage = message;
     });
 
     this.authService.isDataStoredObserable().subscribe((isStored) => {
