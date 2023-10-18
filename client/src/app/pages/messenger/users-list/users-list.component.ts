@@ -33,6 +33,14 @@ export class UsersListComponent {
       this.chats = this.ammendLastMessageToChats(message);
     });
 
+    this.authService.isDataStoredObserable().subscribe((isStored) => {
+      if (isStored) {
+        this.fetchUserData();
+      }
+    });
+  }
+
+  fetchUserData() {
     this.authService.fetchUserData().subscribe((data) => {
       this.currentUser = data as User;
       this.fetchChats();
