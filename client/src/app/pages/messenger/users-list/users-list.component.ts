@@ -39,6 +39,12 @@ export class UsersListComponent {
 
     this.eventService.onNewMessage((message) => {
       this.chats = this.ammendDataToChat(message);
+      this.newMessage = message;
+      const isChatOpen = this.selectedUser && this.selectedUser._id === message.sender;
+      if (isChatOpen) {
+        const chat = this.chats.find((chat) => chat.user._id === message.sender) || {} as Chat;
+        this.readChat(chat, (chat: Chat) => console.log(`Read messages for ${chat.user.name}`));
+      }
     });
 
     this.authService.isDataStoredObserable().subscribe((isStored) => {
@@ -55,12 +61,18 @@ export class UsersListComponent {
     });
   }
 
+  readChat(chat: Chat, callback: Function = () => {}) {
+    if (chat?.user?._id) {
+      this.messageService.readMessages(chat.user._id).subscribe(() => callback(chat));
+    }
+  }
+
   ammendDataToChat(message: Message): Array<Chat> {
     return this.chats.map((chat) => (
       {
         ...chat,
         ...([message.receiver, message.sender].includes(chat.user._id) && {lastMessage: message}),
-        ...(message.receiver === this.currentUser._id && message.sender === chat.user._id && message.sender !== this.selectedUser._id && {unreadCount: chat.unreadCount + 1})
+        ...(message.receiver === this.currentUser._id && message.sender === chat.user._id && {unreadCount: chat.unreadCount + 1})
       }
     ));
   }
@@ -81,8 +93,6 @@ export class UsersListComponent {
   }
 
   openChat(chat: Chat) {
-    this.messageService.readMessages(chat.user._id).subscribe(() => {
-      this.userSelected.emit(chat.user);
-    });
+    this.readChat(chat, (chat: Chat) => this.userSelected.emit(chat.user));
   }
 }
