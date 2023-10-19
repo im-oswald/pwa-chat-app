@@ -2,9 +2,9 @@
   <div class="thumbnail">{{ nameInitials }}</div>
   <div class="content">
     <div class="container">
-      <p class="name">{{ user.name }}</p>
-      <p class="time-ago">{{ formattedTimeDifference }}</p>
+      <p class="name">{{ user.name }} <span *ngIf="!!unreadCount" class="unread-count">{{ unreadCount }}</span></p>
+      <div class="time-ago">{{ formattedTimeDifference }}</div>
     </div>
-    <div class="message-text">{{ trimmedLastMessage }}</div>
+    <div class="message-text" [ngClass]="{'unread' : !!unreadCount}">{{ trimmedLastMessage }}</div>
   </div>
 </div>
