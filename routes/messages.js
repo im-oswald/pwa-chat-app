@@ -97,6 +97,20 @@ router.get('/chat-list', auth, async (req, res) => {
               },
             },
           },
+          unreadCount: {
+            $sum: {
+              $cond: {
+                if: {
+                  $and: [
+                    { $eq: ['$receiver', userId] },
+                    { $eq: ['$readAt', null] }
+                  ],
+                },
+                then: 1,
+                else: 0,
+              },
+            },
+          },
         },
       },
       {
@@ -118,6 +132,7 @@ router.get('/chat-list', auth, async (req, res) => {
             name: 1, // Include the user's name
           },
           lastMessage: 1,
+          unreadCount: 1,
         },
       },
       {
@@ -131,5 +146,5 @@ router.get('/chat-list', auth, async (req, res) => {
     console.log(err);
     return res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
   }
-})
+});
 module.exports = router;
