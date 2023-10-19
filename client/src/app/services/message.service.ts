@@ -35,4 +35,13 @@ export class MessageService {
       tap(response => console.log('Testing: ', response)),
     );
   }
+
+  readMessages(from: string): Observable<any> {
+    const response = this.http.put<any>(`${this.apiUrl}/api/messages/read-messages?from=${from}`, {});
+
+    return response.pipe(
+      map(response => response),
+      tap(response => console.log('Testing: ', response)),
+    );
+  }
 }

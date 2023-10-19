@@ -30,9 +30,15 @@ export class UsersListComponent {
   ) { }
 
   ngOnInit() {
+    this.eventService.onChatRead((chat) => {
+      this.chats = this.chats.map((c) => ({
+        ...c,
+        ...(c.user._id === chat.user._id && {...chat})
+      }));
+    });
+
     this.eventService.onNewMessage((message) => {
-      this.chats = this.ammendLastMessageToChats(message);
-      this.newMessage = message;
+      this.chats = this.ammendDataToChat(message);
     });
 
     this.authService.isDataStoredObserable().subscribe((isStored) => {
@@ -49,11 +55,12 @@ export class UsersListComponent {
     });
   }
 
-  ammendLastMessageToChats(message: Message) {
+  ammendDataToChat(message: Message): Array<Chat> {
     return this.chats.map((chat) => (
       {
         ...chat,
-        ...([message.receiver, message.sender].includes(chat.user._id) && {lastMessage: message})
+        ...([message.receiver, message.sender].includes(chat.user._id) && {lastMessage: message}),
+        ...(message.receiver === this.currentUser._id && message.sender === chat.user._id && message.sender !== this.selectedUser._id && {unreadCount: chat.unreadCount + 1})
       }
     ));
   }
@@ -74,6 +81,8 @@ export class UsersListComponent {
   }
 
   openChat(chat: Chat) {
-    this.userSelected.emit(chat.user);
+    this.messageService.readMessages(chat.user._id).subscribe(() => {
+      this.userSelected.emit(chat.user);
+    });
   }
 }

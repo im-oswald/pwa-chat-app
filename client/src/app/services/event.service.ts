@@ -22,4 +22,9 @@ export class EventService {
   onNewMessage(callback: (message: any) => void) {
     this.socket.on('newMessage', callback);
   }
+
+  // Chat is read by the server
+  onChatRead(callback: (data: any) => void) {
+    this.socket.on('chatRead', callback);
+  }
 }

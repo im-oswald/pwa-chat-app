@@ -2,6 +2,7 @@ const express = require('express');
 const { ObjectId } = require('mongodb');
 const { check, validationResult } = require('express-validator');
 const Message = require('../models/Message');
+const User = require('../models/User');
 const auth = require('../middlewares/auth');
 const { io } = require('../server');
 
@@ -147,4 +148,31 @@ router.get('/chat-list', auth, async (req, res) => {
     return res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
   }
 });
+
+// @route           /api/messages/chat-list
+// @description     to get all the chat heads of a user with last message
+// @access          Private
+router.put('/read-messages', auth, async (req, res) => {
+  const userId = new ObjectId(req.user.id);
+  const chatUserId = new ObjectId(req.query.from);
+
+  console.log(userId, " ---> ", chatUserId);
+
+  try {
+    await Message.updateMany(
+      { receiver: userId, sender: chatUserId },
+      { $set: { readAt: new Date() } },
+    );
+
+    user = await User.findById(chatUserId, '_id name');
+
+    io.emit('chatRead', { user, unreadCount: 0 });
+
+    return res.json({ msg: 'Message read for the given user successfully' });
+  } catch(err) {
+    console.log(err);
+    return res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+  }
+});
+
 module.exports = router;
