@@ -156,8 +156,6 @@ router.put('/read-messages', auth, async (req, res) => {
   const userId = new ObjectId(req.user.id);
   const chatUserId = new ObjectId(req.query.from);
 
-  console.log(userId, " ---> ", chatUserId);
-
   try {
     await Message.updateMany(
       { receiver: userId, sender: chatUserId },
