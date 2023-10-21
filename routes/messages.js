@@ -25,9 +25,21 @@ router.post('/', auth, [
   const { to, from, message } = req.body;
 
   try {
+    const isChatExists = await Message.findOne({
+      $or: [{ receiver: to, sender: from }, { receiver: from, sender: to }]
+    });
     const messageObj = new Message({ receiver: to, sender: from, content: message });
 
     await messageObj.save();
+
+    console.log('Chat Exists: ', !!isChatExists);
+
+    if (!isChatExists) {
+      const sender = { _id: req.user.id, name: req.user.name };
+      const receiver = await User.findOne({ _id: to }, '_id name');
+      // Start of a new chat
+      io.emit('newChat', { sender, receiver, lastMessage: messageObj, unreadCount: 0 });
+    }
 
     io.emit('newMessage', messageObj);
 

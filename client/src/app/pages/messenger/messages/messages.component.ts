@@ -25,7 +25,7 @@ export class MessagesComponent {
 
   ngOnInit() {
     this.eventService.onNewMessage((message) => {
-      if ([message.sender, message.receiver].includes(this.selectedUser._id)) {
+      if ([message.sender, message.receiver].includes(this.selectedUser?._id)) {
         this.pushMessage(message)
       }
     });
