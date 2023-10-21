@@ -4,7 +4,7 @@ Chatty App is a feature-rich messenger application that offers seamless user reg
 
 [App Demo](https://shorturl.at/swACH)
 
-<img src="./src/assets/gifs/demo.gif?raw=true" width="200px">
+<img src="./client/src/assets/gifs/demo.gif?raw=true" width="200px">
 
 ## Contents
 
