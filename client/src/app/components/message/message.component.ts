@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Chat, Message, User } from '@src/app/models';
+import { Chat, Message, User } from '@app/models';
 import { Utils } from '@src/utils';
 
 @Component({
@@ -20,7 +20,7 @@ export class MessageComponent {
   }
 
   get trimmedLastMessage(): string {
-    return Utils.trimString(this.message.content, 40);
+    return Utils.trimString(this.message.content, 30);
   }
 
   get nameInitials(): string {
@@ -29,6 +29,10 @@ export class MessageComponent {
 
   get formattedTimeDifference() {
     return Utils.getTimeDifference(this.message.date);
+  }
+
+  get unreadCount(): number {
+    return this.chat.unreadCount;
   }
 
   selectChat() {

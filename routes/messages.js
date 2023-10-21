@@ -2,6 +2,7 @@ const express = require('express');
 const { ObjectId } = require('mongodb');
 const { check, validationResult } = require('express-validator');
 const Message = require('../models/Message');
+const User = require('../models/User');
 const auth = require('../middlewares/auth');
 const { io } = require('../server');
 
@@ -24,9 +25,21 @@ router.post('/', auth, [
   const { to, from, message } = req.body;
 
   try {
+    const isChatExists = await Message.findOne({
+      $or: [{ receiver: to, sender: from }, { receiver: from, sender: to }]
+    });
     const messageObj = new Message({ receiver: to, sender: from, content: message });
 
     await messageObj.save();
+
+    console.log('Chat Exists: ', !!isChatExists);
+
+    if (!isChatExists) {
+      const sender = { _id: req.user.id, name: req.user.name };
+      const receiver = await User.findOne({ _id: to }, '_id name');
+      // Start of a new chat
+      io.emit('newChat', { sender, receiver, lastMessage: messageObj, unreadCount: 0 });
+    }
 
     io.emit('newMessage', messageObj);
 
@@ -97,6 +110,20 @@ router.get('/chat-list', auth, async (req, res) => {
               },
             },
           },
+          unreadCount: {
+            $sum: {
+              $cond: {
+                if: {
+                  $and: [
+                    { $eq: ['$receiver', userId] },
+                    { $eq: ['$readAt', null] }
+                  ],
+                },
+                then: 1,
+                else: 0,
+              },
+            },
+          },
         },
       },
       {
@@ -118,6 +145,7 @@ router.get('/chat-list', auth, async (req, res) => {
             name: 1, // Include the user's name
           },
           lastMessage: 1,
+          unreadCount: 1,
         },
       },
       {
@@ -131,5 +159,30 @@ router.get('/chat-list', auth, async (req, res) => {
     console.log(err);
     return res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
   }
-})
+});
+
+// @route           /api/messages/chat-list
+// @description     to get all the chat heads of a user with last message
+// @access          Private
+router.put('/read-messages', auth, async (req, res) => {
+  const userId = new ObjectId(req.user.id);
+  const chatUserId = new ObjectId(req.query.from);
+
+  try {
+    await Message.updateMany(
+      { receiver: userId, sender: chatUserId },
+      { $set: { readAt: new Date() } },
+    );
+
+    user = await User.findById(chatUserId, '_id name');
+
+    io.emit('chatRead', { user, unreadCount: 0 });
+
+    return res.json({ msg: 'Message read for the given user successfully' });
+  } catch(err) {
+    console.log(err);
+    return res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+  }
+});
+
 module.exports = router;

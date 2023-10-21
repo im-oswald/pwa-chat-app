@@ -11,12 +11,20 @@
 
     .title {
       font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
 
       .count {
         font-size: 12px;
-        background: var(--gray-gray-200, #EDF2F7);
-        padding: 5px;
-        border-radius: 22px;
+        background-color: #ff5733;
+        color: #fff;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
 

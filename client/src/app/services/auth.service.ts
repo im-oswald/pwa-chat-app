@@ -61,7 +61,9 @@ export class AuthService {
         });
       },
       error: (err) => {
-        if (err.status === 401) {
+        const regex = new RegExp(`\\btoken\\b`);
+
+        if (err.status === 401 || regex.test(err.message)) {
           this.isLoggedIn.next(false);
         }
       }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { AuthService } from '@src/app/services';
+import { AuthService } from '@app/services';
 import { Utils } from '@src/utils';
 import { User } from '@app/models';
 

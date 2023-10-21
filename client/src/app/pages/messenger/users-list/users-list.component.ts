@@ -30,10 +30,24 @@ export class UsersListComponent {
   ) { }
 
   ngOnInit() {
-    this.eventService.onNewMessage((message) => {
-      this.chats = this.ammendLastMessageToChats(message);
-      this.newMessage = message;
+    this.eventService.onChatRead((chat: Chat) => {
+      this.chats = this.chats.map((c) => ({
+        ...c,
+        ...(c.user._id === chat.user._id && {...chat})
+      }));
     });
+
+    this.eventService.onNewMessage((message: Message) => {
+      this.chats = this.ammendDataToChat(message);
+      this.newMessage = message;
+      const isChatOpen = this.selectedUser?._id === message.sender;
+      if (isChatOpen) {
+        const chat = this.chats.find((chat) => chat.user._id === this.selectedUser?._id) || {} as Chat;
+        this.readChat(chat, (chat: Chat) => console.log(`Read messages for ${chat.user.name}`));
+      }
+    });
+
+    this.eventService.onNewChat((chat: Chat) => this.addNewChat(chat));
 
     this.authService.isDataStoredObserable().subscribe((isStored) => {
       if (isStored) {
@@ -49,11 +63,28 @@ export class UsersListComponent {
     });
   }
 
-  ammendLastMessageToChats(message: Message) {
+  readChat(chat: Chat, callback: Function = () => {}) {
+    if (chat?.user?._id) {
+      this.messageService.readMessages(chat.user._id).subscribe(() => callback(chat));
+    }
+  }
+
+  addNewChat(chat: Chat) {
+    const { sender, receiver } = chat;
+    this.chats.unshift({
+      ...chat,
+      ...(sender?._id === this.currentUser._id && { user: receiver }),
+      ...(receiver?._id === this.currentUser._id && { user: sender }),
+    });
+  }
+
+  ammendDataToChat(message: Message): Array<Chat> {
     return this.chats.map((chat) => (
       {
         ...chat,
-        ...([message.receiver, message.sender].includes(chat.user._id) && {lastMessage: message})
+        ...([message.receiver, message.sender].includes(chat.user._id) && {lastMessage: message}),
+        ...(message.receiver === this.currentUser._id && message.sender === chat.user._id && {unreadCount: chat.unreadCount + 1}),
+        ...(message.receiver === chat.user._id && message.sender !== this.currentUser._id && {unreadCount: chat.unreadCount + 1})
       }
     ));
   }
@@ -73,7 +104,11 @@ export class UsersListComponent {
     this.userSelected.emit(user);
   }
 
+  get unreadCount(): number {
+    return this.chats.reduce((acc, chat) => acc + chat.unreadCount, 0);
+  }
+
   openChat(chat: Chat) {
-    this.userSelected.emit(chat.user);
+    this.readChat(chat, (chat: Chat) => this.userSelected.emit(chat.user));
   }
 }
