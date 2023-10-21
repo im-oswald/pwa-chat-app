@@ -1,6 +1,6 @@
 <div class="users-list">
   <div class="header-section">
-    <div class="title">Messages <span class="count">12</span></div>
+    <div class="title">Messages <span class="count" *ngIf="!!unreadCount">{{ unreadCount }}</span></div>
     <div class="add-message" (click)="toggleUserDropdown()">
       <img #addIcon height="30px" width="30px" src="assets/icons/add.svg" />
       <app-users-dropdown

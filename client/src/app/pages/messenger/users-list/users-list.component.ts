@@ -104,6 +104,10 @@ export class UsersListComponent {
     this.userSelected.emit(user);
   }
 
+  get unreadCount(): number {
+    return this.chats.reduce((acc, chat) => acc + chat.unreadCount, 0);
+  }
+
   openChat(chat: Chat) {
     this.readChat(chat, (chat: Chat) => this.userSelected.emit(chat.user));
   }
